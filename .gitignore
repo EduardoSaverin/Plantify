@@ -11,3 +11,9 @@ wheels/
 .idea
 /data/photos
 .env
+
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.gguf
