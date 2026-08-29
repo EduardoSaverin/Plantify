@@ -4,6 +4,10 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROMPTS_DIR = PROJECT_ROOT / "prompts"
+DATA_DIR = PROJECT_ROOT / "data"
+EVAL_DIR = DATA_DIR / "eval"
+PHOTOS_DIR = DATA_DIR / "photos"
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(

@@ -9,7 +9,7 @@ wheels/
 # Virtual environments
 .venv
 .idea
-/data/photos
+data/photos
 .env
 
 *.pt
