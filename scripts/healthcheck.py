@@ -1,10 +1,7 @@
-from dotenv import load_dotenv
-import os
 import ollama
+from plantify.config import settings
 
-load_dotenv()
-
-OLLAMA_HOST = os.getenv("OLLAMA_HOST")
+OLLAMA_HOST = settings.ollama_host
 
 def healthcheck():
     print(f"Connecting to {OLLAMA_HOST}")
