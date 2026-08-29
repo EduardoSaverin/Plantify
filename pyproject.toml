@@ -1,0 +1,23 @@
+[project]
+name = "plantify"
+version = "0.1.0"
+description = "Plantify : Plants Needs Care"
+readme = "README.md"
+authors = [
+    { name = "Sumit Chaudhary", email = "EduardoSaverin@users.noreply.github.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "ollama>=0.6.2",
+    "pillow>=12.3.0",
+    "pydantic>=2.13.5",
+    "python-dotenv>=1.2.3",
+    "streamlit>=1.62.0",
+]
+
+[project.scripts]
+plantify = "plantify:main"
+
+[build-system]
+requires = ["uv_build>=0.12.7,<0.13.0"]
+build-backend = "uv_build"
