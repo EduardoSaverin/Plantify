@@ -1,8 +1,13 @@
 import ollama
 import logging
 from plantify.config import settings
+from functools import lru_cache
 
 logger = logging.getLogger(__name__)
+
+@lru_cache(maxsize=1)
+def ollam_client():
+    return ollama.Client(host=settings.ollama_host)
 
 def _build_options(temperature = 0.0, seed=42, params=None) -> dict:
     if params is None:
@@ -41,9 +46,10 @@ def _log_stats(final_chunk) -> None:
         tps
     )
 
-def complete(system, user, model, temperature=0.0, seed=42, **params):
+def complete(system, user, model = None, temperature=0.0, seed=42, **params):
+    model = model or settings.text_model
     options = _build_options(temperature, seed, params)
-    client = ollama.Client(host=settings.ollama_host)
+    client = ollam_client()
     response = client.chat(model=model, messages=[
         {
             'role': 'system',
@@ -57,9 +63,10 @@ def complete(system, user, model, temperature=0.0, seed=42, **params):
     _log_stats(response)
     return response.message.content
 
-def stream_complete(system, user, model, temperature=0.0, seed=42, **params):
+def stream_complete(system, user, model = None, temperature=0.0, seed=42, **params):
+    model = model or settings.text_model
     options = _build_options(temperature, seed, params)
-    client = ollama.Client(host=settings.ollama_host)
+    client = ollam_client()
     response = client.chat(model=model, messages=[
         {
             'role': 'system',
@@ -80,12 +87,11 @@ def stream_complete(system, user, model, temperature=0.0, seed=42, **params):
         _log_stats(final_chunk)
 
 if __name__ == '__main__':
-    answer = complete(system="You are plants expert", user="What causes yellow leaves on a snake plant?", model=settings.text_model)
+    answer = complete(system="You are plants expert", user="What causes yellow leaves on a snake plant?")
     print(f"Answer : {answer}")
 
     for text in stream_complete(
             system="You are plants expert",
-            user="What causes yellow leaves on a snake plant?",
-        model=settings.text_model,
+            user="What causes yellow leaves on a snake plant?"
     ):
         print(text, end="", flush=True)
