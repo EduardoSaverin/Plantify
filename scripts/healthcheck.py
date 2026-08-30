@@ -1,5 +1,8 @@
 import ollama
 from plantify.config import settings
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 OLLAMA_HOST = settings.ollama_host
 
