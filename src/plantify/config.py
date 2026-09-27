@@ -20,5 +20,7 @@ class Settings(BaseSettings):
     ollama_host:str = Field("http://localhost:11434", min_length=1)
     text_model:str = Field("llama3.1:8b", min_length=1)
     vision_model:str = Field("qwen2.5vl:7b", min_length=1)
+    tokenizer_model:str = Field("NousResearch/Meta-Llama-3.1-8B-Instruct", min_length=1)
+    num_ctx: int = Field(8192, ge=512)
 
 settings = Settings()
